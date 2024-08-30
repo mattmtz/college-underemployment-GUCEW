@@ -1,0 +1,229 @@
+-----------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\mattm\Desktop\Underemployment\college
+> -underemployment-GUCEW\output/ACS_filtering.txt
+  log type:  text
+ opened on:  28 Aug 2024, 09:40:58
+r; t=0.01 9:40:58
+
+. 
+. ** KEEP NOT-IN-SCHOOL RECORDS **
+. label list school_lbl
+school_lbl:
+           0 N/A
+           1 No, not in school
+           2 Yes, in school
+           8 Unknown
+           9 Missing
+r; t=0.00 9:40:58
+
+. tab school
+
+School attendance |      Freq.     Percent        Cum.
+------------------+-----------------------------------
+              N/A |    437,349        2.78        2.78
+No, not in school | 11,759,612       74.80       77.58
+   Yes, in school |  3,524,162       22.42      100.00
+------------------+-----------------------------------
+            Total | 15,721,123      100.00
+r; t=1.62 9:41:00
+
+. keep if school == 1
+(3,961,511 observations deleted)
+r; t=2.64 9:41:02
+
+. 
+. ** KEEP EMPLOYED **
+. label list empstat_lbl
+empstat_lbl:
+           0 N/A
+           1 Employed
+           2 Unemployed
+           3 Not in labor force
+           9 Unknown/Illegible
+r; t=0.00 9:41:03
+
+. tab empstat
+
+ Employment status |
+ [general version] |      Freq.     Percent        Cum.
+-------------------+-----------------------------------
+               N/A |    239,045        2.03        2.03
+          Employed |  6,568,484       55.86       57.89
+        Unemployed |    305,736        2.60       60.49
+Not in labor force |  4,646,347       39.51      100.00
+-------------------+-----------------------------------
+             Total | 11,759,612      100.00
+r; t=2.01 9:41:05
+
+. keep if empstat == 1
+(5,191,128 observations deleted)
+r; t=2.03 9:41:07
+
+. 
+. ** DROP MILITARY **
+. tab occ2010 if substr(occsoc, 1, 2) == "55"
+
+                 Occupation, 2010 basis |      Freq.     Pe
+> rcent        Cum.
+----------------------------------------+------------------
+> -----------------
+Military Officer Special and Tactical O |      2,462       
+>  9.62        9.62
+First-Line Enlisted Military Supervisor |      2,287       
+>  8.94       18.56
+Military Enlisted Tactical Operations a |      8,771       
+> 34.28       52.84
+           Military, Rank Not Specified |     12,067       
+> 47.16      100.00
+----------------------------------------+------------------
+> -----------------
+                                  Total |     25,587      1
+> 00.00
+r; t=2.66 9:41:09
+
+. drop if substr(occsoc, 1, 2) == "55"
+(25,587 observations deleted)
+r; t=2.47 9:41:12
+
+. 
+. ** DROP NO WAGE INCOME OBS **
+. count if incwage <= 0
+  385,098
+r; t=0.100 9:41:13
+
+. drop if incwage <= 0
+(385,098 observations deleted)
+r; t=0.85 9:41:14
+
+. 
+. ** KEEP AGES 22-54 **
+. keep if age >= $MINAGE & age <= $MAXAGE
+(1,987,960 observations deleted)
+r; t=1.14 9:41:15
+
+. 
+. ** IDENTIFY FULL-YR WORKERS **
+. label list wkswork2_lbl
+wkswork2_lbl:
+           0 N/A
+           1 1-13 weeks
+           2 14-26 weeks
+           3 27-39 weeks
+           4 40-47 weeks
+           5 48-49 weeks
+           6 50-52 weeks
+r; t=0.00 9:41:15
+
+. tab wkswork2
+
+      Weeks |
+worked last |
+      year, |
+intervalled |      Freq.     Percent        Cum.
+------------+-----------------------------------
+ 1-13 weeks |    109,101        2.62        2.62
+14-26 weeks |     92,421        2.22        4.83
+27-39 weeks |    114,615        2.75        7.58
+40-47 weeks |    168,508        4.04       11.62
+48-49 weeks |     60,859        1.46       13.08
+50-52 weeks |  3,624,335       86.92      100.00
+------------+-----------------------------------
+      Total |  4,169,839      100.00
+r; t=0.44 9:41:16
+
+. count if wkswork2 == 6
+  3,624,335
+r; t=0.36 9:41:16
+
+. 
+. ** IDENTIFY FT WORKERS **
+. gen ftfy_flag = (uhrs >=30 & wkswork2 == 6)
+r; t=0.57 9:41:17
+
+.         label define ftfy_flag_lbl 0 "Not FTFY" 1 "FTFY (
+> 30+ hrs/wk)"
+r; t=0.01 9:41:17
+
+.         label values ftfy_flag ftfy_flag_lbl
+r; t=0.00 9:41:17
+
+. 
+. tab ftfy_flag
+
+        ftfy_flag |      Freq.     Percent        Cum.
+------------------+-----------------------------------
+         Not FTFY |    744,252       17.85       17.85
+FTFY (30+ hrs/wk) |  3,425,587       82.15      100.00
+------------------+-----------------------------------
+            Total |  4,169,839      100.00
+r; t=0.42 9:41:17
+
+. tab educd
+
+       Educational attainment [detailed |
+                               version] |      Freq.     Pe
+> rcent        Cum.
+----------------------------------------+------------------
+> -----------------
+                 No schooling completed |     46,129       
+>  1.11        1.11
+              Nursery school, preschool |        903       
+>  0.02        1.13
+                           Kindergarten |        697       
+>  0.02        1.14
+                                Grade 1 |        965       
+>  0.02        1.17
+                                Grade 2 |      1,778       
+>  0.04        1.21
+                                Grade 3 |      3,616       
+>  0.09        1.30
+                                Grade 4 |      2,662       
+>  0.06        1.36
+                                Grade 5 |      4,511       
+>  0.11        1.47
+                                Grade 6 |     22,009       
+>  0.53        2.00
+                                Grade 7 |      5,428       
+>  0.13        2.13
+                                Grade 8 |     18,693       
+>  0.45        2.58
+                                Grade 9 |     29,393       
+>  0.70        3.28
+                               Grade 10 |     30,503       
+>  0.73        4.01
+                               Grade 11 |     38,214       
+>  0.92        4.93
+                 12th grade, no diploma |     61,343       
+>  1.47        6.40
+            Regular high school diploma |    781,448       
+> 18.74       25.14
+          GED or alternative credential |    139,528       
+>  3.35       28.49
+     Some college, but less than 1 year |    260,561       
+>  6.25       34.73
+1 or more years of college credit, no d |    507,347       
+> 12.17       46.90
+ Associate's degree, type not specified |    389,717       
+>  9.35       56.25
+                      Bachelor's degree |  1,130,507       
+> 27.11       83.36
+                        Master's degree |    500,308       
+> 12.00       95.36
+Professional degree beyond a bachelor's |    111,732       
+>  2.68       98.04
+                        Doctoral degree |     81,847       
+>  1.96      100.00
+----------------------------------------+------------------
+> -----------------
+                                  Total |  4,169,839      1
+> 00.00
+r; t=0.85 9:41:18
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\mattm\Desktop\Underemployment\college
+> -underemployment-GUCEW\output/ACS_filtering.txt
+  log type:  text
+ closed on:  28 Aug 2024, 09:41:18
+-----------------------------------------------------------
