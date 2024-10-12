@@ -1,11 +1,11 @@
 /**************************************
 *** NAME:    MATT MARTINEZ
 *** PROJECT: UNDEREMPLOYMENT
-*** PURPOSE: CREATE MEMO FIGURES
-*** DATE:    07/17/2024
+*** PURPOSE: CREATE FINAL MEMO FIGURE
+*** DATE:    10/14/2024
 **************************************/
 
-*** FIND EXAMPLE OCCUPATIONS ***
+** FIND EXAMPLE OCCUPATIONS **
 use "../intermediate/clean_acs_data", clear
 	keep if inlist(cln_educ_cat, "hs", "bachelors") & educ_req_nbr == 2 &  ///
 	 agedum_25_54 == 1
@@ -43,14 +43,14 @@ keep age_cat bls_occ ba_hs_diff rank
 tempfile EXS
 save `EXS'
 
-*** MERGE TO FULL ACS DATA ***
+** MERGE TO FULL ACS DATA **
 use "../intermediate/clean_acs_data", clear
 	keep if agedum_25_54 == 1
 	gen age_cat = "25-54"
 
 merge m:1 age_cat bls_occ using `EXS', keep(3) nogen
 
-*** COLLAPSE DATA ***
+** COLLAPSE DATA **
 gen educ_group = cln_educ_cat
 	replace educ_group = "hs_or_less" if inlist(cln_educ_cat, "hs", "less_hs")
 	replace educ_group = "ma_plus" if cln_educ_cat == "masters" | ///
@@ -68,7 +68,7 @@ collapse (sum) perwt, by(bls rank occ_soc educ_req educ_group n_educ_group)
 bysort bls: egen tot = sum(perwt)
 	gen pct = perwt / tot
 	
-*** EXPORT DATA ***
+** EXPORT DATA **
 order rank bls occ educ_req educ_group tot perwt pct
 gsort rank n_educ_group
 drop n_educ_group

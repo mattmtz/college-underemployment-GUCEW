@@ -1,15 +1,15 @@
 /**************************************
 *** NAME:    MATT MARTINEZ
 *** PROJECT: UNDEREMPLOYMENT
-*** PURPOSE: CREATE MEMO FIGURES
-*** DATE:    07/17/2024
+*** PURPOSE: CREATE FIGURES/TABLE
+*** DATE:    10/14/2024
 **************************************/
 
-*** LOAD DATA ***
+** LOAD DATA **
 use "../intermediate/underemployment_data", clear
 	drop if bls_occ_title == "All occupations" | cln_educ_cat != "bachelors"
 	 
-*** CREATE COUNTS FOR UNDEREMPLOYMENT ***
+** CREATE COUNTS FOR UNDEREMPLOYMENT **
 gen n_suff = n_wtd
 	replace n_suff = 0 if suff_flag == 0
 
@@ -17,7 +17,7 @@ gen n_suff = n_wtd
 *** CREATE FIGURE 1 DATA ***
 ****************************
 
-*** UNDEREMPLOYMENT BY DEFINITION (FTFY WORKERS ONLY) ***
+** UNDEREMPLOYMENT BY DEFINITION (FTFY WORKERS ONLY) **
 preserve
 	drop if ftfy == 0
 	collapse (sum) n_wtd n_suff underemp_bls underemp, by(age_cat)
@@ -29,7 +29,7 @@ preserve
 	save `FTFY'
 restore
 
-*** BLS UNDEREMPLOYMENT (ALL WORKERS) ***
+** BLS UNDEREMPLOYMENT (ALL WORKERS) **
 preserve
 	collapse (sum) n_wtd underemp_bls, by(age_cat)
 	gen ftfy = "All workers"
@@ -68,21 +68,21 @@ export excel using "$FILE", first(var) sheet("fig3_raw", replace)
 *** CREATE TABLE 1 DATA ***
 ***************************
 
-*** LOAD DATA ***
+** LOAD DATA **
 use "../intermediate/clean_acs_data", clear
 
 keep if agedum_25_54 == 1 & inlist(cln_educ_cat, "hs", "bachelors") & ///
  inlist(educ_req_nbr, 2, 5) & ftfy == 1
  
-*** COLLAPSE DATA ***
+** COLLAPSE DATA **
 collapse (p25) w_p25 = incw (p50) w_p50 = incw (p75) w_p75 = incw ///
  [pw = perwt], by(cln_educ_cat educ_req)
 	
-*** RESHAPE DATA ***
+** RESHAPE DATA **
 reshape long w_p, i(cln_educ_cat educ_r*) j(pctl)
 reshape wide w_p, i(educ_req pctl) j(cln_educ_cat) string
 
-*** EXPORT DATA ***
+** EXPORT DATA **
 rename (w_pba w_phs) (ba_wage hs_wage)
 tostring(pctl), replace
 

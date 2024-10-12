@@ -1,8 +1,8 @@
 /******************************
 *** NAME:    MATT MARTINEZ
 *** PROJECT: UNDEREMPLOYMENT
-*** PURPOSE: FILTER IPUMS DATA
-*** DATE:    08/21/2024
+*** PURPOSE: FILTER ACS DATA
+*** DATE:    10/14/2024
 ******************************/
 
 *******************
@@ -53,5 +53,5 @@ log close
 ** RENAME OCCUPATION CODES **
 rename (occ occsoc occ2010) (occ_acs occ_soc_acs_incomplete occ_acs_2010)
 
-** EXPORT DATA
+** EXPORT DATA **
 save "../intermediate/acs_filtered", replace

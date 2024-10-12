@@ -2,7 +2,7 @@
 *** NAME:    MATT MARTINEZ
 *** PROJECT: UNDEREMPLOYMENT
 *** PURPOSE: GET COUNTS/EARNINGS
-*** DATE:    05/22/2024
+*** DATE:    10/14/2024
 ********************************/
 
 use "../intermediate/clean_acs_data", clear
@@ -137,7 +137,7 @@ restore
 *** CREATE COMBINED DATASET ***
 *******************************
 
-*** COMBINE COUNTS DATA ***
+** COMBINE COUNTS DATA **
 clear
 tempfile countsdat
 save `countsdat', emptyok
@@ -150,7 +150,7 @@ foreach x in `AGEDUMS' {
 	save `"`countsdat'"', replace
 } 
 
-*** COMBINE WAGE DATA ***
+** COMBINE WAGE DATA **
 clear
 tempfile earndat
 save `earndat', emptyok
@@ -187,7 +187,7 @@ gen suff_flag = (comp_count >= $NFLAG )
 
 drop int_count
 	
-*** CREATE COMPARISON VALUE FOR PREMIUM CALCULATION ***
+** CREATE COMPARISON VALUE FOR PREMIUM CALCULATION **
 gen int_wage = 0
 	replace int_wage = med_wage if cln_educ_cat == "bls_educ"
 	bysort age_cat bls_occ_title ft: egen comp_wage = max(int_wage)
@@ -195,7 +195,7 @@ gen int_wage = 0
 	 suff_flag == 0
 	drop int_wage
 
-*** SAVE DATA ***
+** SAVE DATA **
 order age_c occ_acs bls_occ occ_soc educ_req educ_req_n cln_educ n_wtd n_raw suff ///
  comp_count comp_wage med_wage
 gsort age_cat cln_educ_cat educ_req_nbr bls
