@@ -5,7 +5,7 @@
 *** DATE:    09/09/2024
 ***********************************/
 
-use "../intermediate/alt_underemployment_defs", clear
+use "intermediate/alt_underemployment_defs", clear
 
 *********************************
 *** CREATE MEDIAN WAGE GRAPHS ***
@@ -79,7 +79,7 @@ keep bls occ* oer ep college_occ* deming_ba*
 tempfile DEFS
 save `DEFS'
 
-use "../intermediate/clean_acs_data", clear
+use "intermediate/clean_acs_data", clear
 	keep if cln_educ_cat == "bachelors" & ftfy == 1 & agedum_25_54 == 1
 	
 merge m:1 bls_occ occ_soc occ_acs using `DEFS'

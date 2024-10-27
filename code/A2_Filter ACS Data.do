@@ -54,4 +54,4 @@ log close
 rename (occ occsoc occ2010) (occ_acs occ_soc_acs_incomplete occ_acs_2010)
 
 ** EXPORT DATA **
-save "../intermediate/acs_filtered", replace
+save "intermediate/acs_filtered", replace

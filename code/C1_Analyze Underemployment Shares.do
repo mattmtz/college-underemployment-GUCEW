@@ -6,7 +6,7 @@
 **************************************/
 
 ** LOAD DATA **
-use "../intermediate/underemployment_data", clear
+use "intermediate/underemployment_data", clear
 	drop if bls_occ_title == "All occupations" | cln_educ_cat != "bachelors"
 	 
 ** CREATE COUNTS FOR UNDEREMPLOYMENT **
@@ -69,7 +69,7 @@ export excel using "$FILE", first(var) sheet("fig3_raw", replace)
 ***************************
 
 ** LOAD DATA **
-use "../intermediate/clean_acs_data", clear
+use "intermediate/clean_acs_data", clear
 
 keep if agedum_25_54 == 1 & inlist(cln_educ_cat, "hs", "bachelors") & ///
  inlist(educ_req_nbr, 2, 5) & ftfy == 1

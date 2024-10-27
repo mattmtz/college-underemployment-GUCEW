@@ -6,7 +6,7 @@
 **************************************/
 
 ** FIND EXAMPLE OCCUPATIONS **
-use "../intermediate/clean_acs_data", clear
+use "intermediate/clean_acs_data", clear
 	keep if inlist(cln_educ_cat, "hs", "bachelors") & educ_req_nbr == 2 &  ///
 	 agedum_25_54 == 1
 	 
@@ -44,7 +44,7 @@ tempfile EXS
 save `EXS'
 
 ** MERGE TO FULL ACS DATA **
-use "../intermediate/clean_acs_data", clear
+use "intermediate/clean_acs_data", clear
 	keep if agedum_25_54 == 1
 	gen age_cat = "25-54"
 

@@ -21,7 +21,7 @@ global BA_PREM1 (1 + 4*$EDUC_PREM ) // cutoff for BA wage premium over HS wage
 global BA_PREM2 (1 + 2*$EDUC_PREM ) // cutoff for BA wage premium over AA wage
 
 ** SET WORKING DIRECTORY GLOBAL **
-global CD "C:\Users\mattm\Desktop\Underemployment\college-underemployment-GUCEW"
+global CD "C:/Users/mattm/Desktop/Underemployment/college-underemployment-GUCEW"
 cd "$CD"
 
 ** DEFINE OUTPUT FILE **

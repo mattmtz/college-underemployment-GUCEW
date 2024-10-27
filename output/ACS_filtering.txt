@@ -3,8 +3,8 @@
        log:  C:\Users\mattm\Desktop\Underemployment\college-underemployment-GUCEW\output/ACS_
 > filtering.txt
   log type:  text
- opened on:  12 Oct 2024, 15:00:11
-r; t=0.02 15:00:11
+ opened on:  25 Oct 2024, 16:16:11
+r; t=0.01 16:16:11
 
 . 
 . ** KEEP NOT-IN-SCHOOL RECORDS **
@@ -15,7 +15,7 @@ school_lbl:
            2 Yes, in school
            8 Unknown
            9 Missing
-r; t=0.00 15:00:11
+r; t=0.00 16:16:11
 
 . tab school
 
@@ -26,11 +26,11 @@ No, not in school | 11,759,612       74.80       77.58
    Yes, in school |  3,524,162       22.42      100.00
 ------------------+-----------------------------------
             Total | 15,721,123      100.00
-r; t=0.41 15:00:11
+r; t=0.48 16:16:11
 
 . keep if school == 1
 (3,961,511 observations deleted)
-r; t=0.71 15:00:12
+r; t=0.92 16:16:12
 
 . 
 . ** KEEP EMPLOYED **
@@ -41,7 +41,7 @@ empstat_lbl:
            2 Unemployed
            3 Not in labor force
            9 Unknown/Illegible
-r; t=0.00 15:00:12
+r; t=0.00 16:16:12
 
 . tab empstat
 
@@ -54,11 +54,11 @@ r; t=0.00 15:00:12
 Not in labor force |  4,646,347       39.51      100.00
 -------------------+-----------------------------------
              Total | 11,759,612      100.00
-r; t=0.38 15:00:13
+r; t=0.40 16:16:13
 
 . keep if empstat == 1
 (5,191,128 observations deleted)
-r; t=0.55 15:00:13
+r; t=0.65 16:16:13
 
 . 
 . ** DROP MILITARY **
@@ -72,27 +72,27 @@ Military Enlisted Tactical Operations a |      8,771       34.28       52.84
            Military, Rank Not Specified |     12,067       47.16      100.00
 ----------------------------------------+-----------------------------------
                                   Total |     25,587      100.00
-r; t=0.61 15:00:14
+r; t=0.67 16:16:14
 
 . drop if substr(occsoc, 1, 2) == "55"
 (25,587 observations deleted)
-r; t=0.71 15:00:14
+r; t=0.78 16:16:15
 
 . 
 . ** DROP NO WAGE INCOME OBS **
 . count if incwage <= 0
   385,098
-r; t=0.14 15:00:15
+r; t=0.15 16:16:15
 
 . drop if incwage <= 0
 (385,098 observations deleted)
-r; t=0.26 15:00:15
+r; t=0.31 16:16:15
 
 . 
 . ** KEEP AGES 22-54 **
 . keep if age >= $MINAGE & age <= $MAXAGE
 (1,987,960 observations deleted)
-r; t=0.33 15:00:15
+r; t=0.39 16:16:16
 
 . 
 . ** IDENTIFY FULL-YR WORKERS **
@@ -105,7 +105,7 @@ wkswork2_lbl:
            4 40-47 weeks
            5 48-49 weeks
            6 50-52 weeks
-r; t=0.00 15:00:15
+r; t=0.00 16:16:16
 
 . tab wkswork2
 
@@ -122,22 +122,22 @@ intervalled |      Freq.     Percent        Cum.
 50-52 weeks |  3,624,335       86.92      100.00
 ------------+-----------------------------------
       Total |  4,169,839      100.00
-r; t=0.11 15:00:15
+r; t=0.14 16:16:16
 
 . count if wkswork2 == 6
   3,624,335
-r; t=0.10 15:00:15
+r; t=0.10 16:16:16
 
 . 
 . ** IDENTIFY FT WORKERS **
 . gen ftfy_flag = (uhrs >=30 & wkswork2 == 6)
-r; t=0.14 15:00:16
+r; t=0.17 16:16:16
 
 .         label define ftfy_flag_lbl 0 "Not FTFY" 1 "FTFY (30+ hrs/wk)"
-r; t=0.00 15:00:16
+r; t=0.00 16:16:16
 
 .         label values ftfy_flag ftfy_flag_lbl
-r; t=0.00 15:00:16
+r; t=0.00 16:16:16
 
 . 
 . tab ftfy_flag
@@ -148,7 +148,7 @@ r; t=0.00 15:00:16
 FTFY (30+ hrs/wk) |  3,425,587       82.15      100.00
 ------------------+-----------------------------------
             Total |  4,169,839      100.00
-r; t=0.11 15:00:16
+r; t=0.14 16:16:16
 
 . tab educd
 
@@ -181,12 +181,12 @@ Professional degree beyond a bachelor's |    111,732        2.68       98.04
                         Doctoral degree |     81,847        1.96      100.00
 ----------------------------------------+-----------------------------------
                                   Total |  4,169,839      100.00
-r; t=0.21 15:00:16
+r; t=0.26 16:16:16
 
 . log close
       name:  <unnamed>
        log:  C:\Users\mattm\Desktop\Underemployment\college-underemployment-GUCEW\output/ACS_
 > filtering.txt
   log type:  text
- closed on:  12 Oct 2024, 15:00:16
+ closed on:  25 Oct 2024, 16:16:16
 ---------------------------------------------------------------------------------------------

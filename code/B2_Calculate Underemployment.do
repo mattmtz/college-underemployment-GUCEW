@@ -10,7 +10,7 @@
 ***********************************************
 
 ** PREPARE OCCUPATION-LEVEL DATA **
-use "../intermediate/data_by_occupation", clear
+use "intermediate/data_by_occupation", clear
 	keep if cln_educ_cat == "bachelors" & suff_flag == 1 & ftfy == 1
 	keep occ_acs bls age_cat comp_wage
 	
@@ -18,7 +18,7 @@ use "../intermediate/data_by_occupation", clear
 	save `OCCDAT'
 
 ** DEFINE OVEREDUCATION FOR BA HOLDERS **
-use "../intermediate/clean_acs_data", clear
+use "intermediate/clean_acs_data", clear
 
 unab AGEDUMS: agedum_*
 di "`AGEDUMS'"
@@ -71,7 +71,7 @@ foreach x in `AGEDUMS' {
 }
 
 ** MERGE TO FULL DATASET **
-use "../intermediate/data_by_occupation", clear
+use "intermediate/data_by_occupation", clear
 	merge 1:1 occ_acs bls age_cat cln_educ ftfy using `underemp', nogen
 	
 ** CALCULATE BLS UNDEREMPLOYMENT **
@@ -85,6 +85,6 @@ order age_c cln_educ_cat occ_acs bls occ_soc educ_r* ftfy n* comp_count suff ///
  comp_wage med_wage underemp*
 gsort -ftfy age_cat cln_educ_cat educ_req_nbr bls
 
-save "../intermediate/underemployment_data", replace
+save "intermediate/underemployment_data", replace
 
 export excel using "$FILE", first(var) sheet("data_by_occ", replace)

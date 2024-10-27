@@ -8,7 +8,7 @@
 **************************
 *** RM UNDEREMPLOYMENT ***
 **************************
-use "../intermediate/clean_acs_data", clear
+use "intermediate/clean_acs_data", clear
 	keep if ft == 1 & agedum_25_54 == 1
 	
 gen educ_cat = "hs_or_less"
@@ -127,7 +127,7 @@ tempfile DEMING
 save `DEMING'
 
 ** OER & EP UNDEREMPLOYMENT **
-use "../intermediate/underemployment_data", clear
+use "intermediate/underemployment_data", clear
 	keep if bls_occ !="All occupations" & ftfy == 1 & age_cat == "25-54" & ///
 	 inlist(cln_educ_cat, "all_workers", "BA+", "bachelors")
 	 replace cln_educ_cat = "ba_plus" if cln_educ_cat == "BA+"
@@ -169,4 +169,12 @@ merge 1:1 occ_acs occ_soc using `DEMING'
 	assert _merge == 3
 	drop _merge
 	
-save "../intermediate/alt_underemployment_defs", replace
+save "intermediate/alt_underemployment_defs", replace
+
+*****************************************
+** CREATE OCCUPATION DEFINITIONS TABLE **
+*****************************************
+
+keep occ_acs occ_soc bls_occ *_job college_occ_*
+order occ_acs occ_soc bls oer deming college_occ_p college_occ_m ep
+export excel using "$FILE", first(var) sheet("occ_cats", replace)

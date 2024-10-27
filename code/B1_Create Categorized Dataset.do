@@ -5,7 +5,7 @@
 *** DATE:    10/14/2024
 ********************************/
 
-use "../intermediate/clean_acs_data", clear
+use "intermediate/clean_acs_data", clear
 
 ** CREATE LOCAL WITH AGE DUMMIES **
 unab AGEDUMS: agedum_*
@@ -200,4 +200,4 @@ order age_c occ_acs bls_occ occ_soc educ_req educ_req_n cln_educ n_wtd n_raw suf
  comp_count comp_wage med_wage
 gsort age_cat cln_educ_cat educ_req_nbr bls
 
-save "../intermediate/data_by_occupation", replace
+save "intermediate/data_by_occupation", replace

@@ -106,7 +106,7 @@ save `XWALK'
 *** CREATE FINAL DATASET ***
 ****************************
 
-use "../intermediate/acs_filtered", clear
+use "intermediate/acs_filtered", clear
 
 ** MERGE IN CROSSWALK **
 merge m:1 occ_acs using `XWALK'
@@ -154,4 +154,4 @@ gen agg_educ_lvl = "undereduc" if cln_educ_cat_nbr < educ_req_nbr
 
 ** EXPORT DATA **
 label drop year_lbl
-save "../intermediate/clean_acs_data", replace
+save "intermediate/clean_acs_data", replace
