@@ -175,3 +175,4 @@ order race sex oer rm_m rm_p deming oer
 gsort sex
 
 export excel using "$FILE", first(var) sheet("alt_underemp_pcts", replace) 
+graph close _all

@@ -125,6 +125,10 @@ gen agedum_25_34 = (age > 24 & age < 35)
 gen agedum_35_44 = (age > 34 & age < 45)
 gen agedum_45_54 = (age > 44 & age < 55)
 
+if ($INCLUDEAGES == 0) {
+	drop agedum_all agedum_25_34 agedum_35_44 agedum_45_54
+}
+
 ** CREATE CLEAN EDUCATION CATEGORIES **
 assert !inlist(educd, 0,1,999)
 

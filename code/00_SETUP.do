@@ -20,6 +20,10 @@ global EDUC_PREM = 0.1 // expected premium per addt'l year of education
 global BA_PREM1 (1 + 4*$EDUC_PREM ) // cutoff for BA wage premium over HS wage
 global BA_PREM2 (1 + 2*$EDUC_PREM ) // cutoff for BA wage premium over AA wage
 
+** INCLUDE OTHER AGE CATEGORIES? **
+* value of 1 --> include 22-54, 25-34, 35-44, 45-54 -- see code file A3 line 128
+global INCLUDEAGES 0 
+
 ** SET WORKING DIRECTORY GLOBAL **
 global CD "C:/Users/mattm/Desktop/Underemployment/college-underemployment-GUCEW"
 cd "$CD"
@@ -43,4 +47,4 @@ do "code/D1_Define Alternative Underemployment Measures.do"
 do "code/D2_Alternate Underemployment by Race and Sex.do"
 do "code/D3_Alternate Underemployment Graphs.do"
 
-** TYPICAL RUNTIME: ~20 minutes
+** TYPICAL RUNTIME: ~16-25 minutes

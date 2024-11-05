@@ -127,3 +127,5 @@ graph export "output/deming_earnings_kdens.png", width(3000) height(2500) replac
 graph combine topleft topright bleft bright, rows(2) cols(2)
 
 graph export "output/baplus_earnings_kdens_by_defs.png", width(4250) height(3500) replace
+
+graph close _all
