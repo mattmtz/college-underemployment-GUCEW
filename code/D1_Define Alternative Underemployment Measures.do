@@ -108,8 +108,19 @@ replace deming_cat = "other_professional" if occ_acs_2010 == 1830 // Urban/Regio
 replace deming_cat = "blue_collar" if occ_acs_2010 == 8230 // Bookbinders/Printing Machine...: occ == 734
 
 gen mi_deming = (mi(deming_cat))
-tab mi_deming // 94.85% match
+tab mi_deming // ~96% match
 drop mi_deming
+
+** ARTEM FINAL CLASSIFICATIONS **
+replace deming_cat = "blue_collar" if mi(deming_cat) & ///
+ inlist(occ_acs, 3430, 3645, 3646, 3647, 3648, 3649, 3655, 3840, 3945, 3946, 3960)
+ 
+replace deming_cat = "other_professional" if mi(deming_cat) & ///
+ inlist(occ_acs, 565, 640, 650, 726, 735, 750, 1105, 1935, 1970, 2025, 2180, ///
+ 2862, 3245, 3421, 3422, 3423, 3424)
+
+replace deming_cat = "sales_admin_support" if mi(deming_cat) & ///
+ inlist(occ_acs, 630, 725, 2170)
 
 gen deming_ba_job = (inlist(deming_cat, "management", "other_professional"))
 
