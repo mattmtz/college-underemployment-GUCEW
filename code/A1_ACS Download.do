@@ -1,4 +1,4 @@
-cd "..\IPUMS Data"
+cd "../IPUMS Data"
 clear
 quietly infix                 ///
   int     year       1-4      ///

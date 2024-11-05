@@ -3,7 +3,7 @@
 ## Overview
 Assessing the overstatement of underemployment of workers with bachelor's degrees.
 
-Use the "input/00_Setup.do" file to set the working directory, then run the .do file. All output in the current draft is in the "output/underemployment_analysis.xlsx" file, with additional graphs for alternative underemployment measures in the output folder as .png files. The underlying data can easily be sent to Excel by updating the code in the "code/" folder .do files starting with "D#_".
+Use the "code/00_Setup.do" file to set the working directory, then run the .do file. All output in the current draft is in the "output/underemployment_analysis.xlsx" file, with additional graphs for alternative underemployment measures in the output folder as .png files. The underlying data can easily be sent to Excel by updating the code in the "code/" folder .do files starting with "D#_".
 
 ## Replication
 
