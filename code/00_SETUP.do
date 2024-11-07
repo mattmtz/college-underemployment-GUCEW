@@ -9,8 +9,11 @@ clear
 capture log close
 macro drop _all
 set more off, perm
+version 14
 set rmsg on
-*ssc install unique
+/* install the following user-written programs if not already present */
+*ssc install unique 
+*ssc install kdens
 
 ** SET KEY CUTOFFS **
 global MINAGE 22
