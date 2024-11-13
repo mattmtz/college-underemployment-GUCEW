@@ -8,7 +8,7 @@
 ** FIND EXAMPLE OCCUPATIONS **
 use "intermediate/clean_acs_data", clear
 	keep if inlist(cln_educ_cat, "hs", "bachelors") & educ_req_nbr == 2 &  ///
-	 agedum_25_54 == 1
+	 agedum_25_54 == 1 //& ftfy == 1
 	 
 collapse (sum) perwt, by(bls cln_educ_cat)
 	
@@ -26,14 +26,16 @@ tab diffdum
 
 /* THE OCCUPATIONS WITH MORE BAs THAN HS GRADS EMPLOY ~30% OF ALL WORKERS IN
    THE SET OF OCCUPATIONS CONSIDERED TO BE HIGH SCHOOL LEVEL BY BLS
-*/
+
 preserve
 	label var diffdum "Occs w/ more BAs than HSs"
 	collapse (sum) all_workers, by(diffdum)
 	egen tot = sum(all_workers)
 	gen pct = all_workers / tot
+	version 14
 	table diffdum, c(sum pct)
 restore
+*/
 
 gen rank = _n
 *keep if rank < 6
